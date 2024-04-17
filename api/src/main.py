@@ -44,7 +44,7 @@ neo4j_connection = Neo4jDatabase(
     host=os.environ.get("NEO4J_URL", "neo4j+s://demo.neo4jlabs.com"),
     user=os.environ.get("NEO4J_USER", "companies"),
     password=os.environ.get("NEO4J_PASS", "companies"),
-    database=os.environ.get("NEO4J_DATABASE", "companies"),
+    database=os.environ.get("NEO4J_DATABASE", "neo4j"),
 )
 
 
@@ -195,7 +195,9 @@ async def root(payload: ImportPayload):
     """
     Takes an input and created a Cypher query
     """
+    print("making cypher query")
     if not openai_api_key and not payload.api_key:
+        print("making cypher query 2")
         raise HTTPException(
             status_code=422,
             detail="Please set OPENAI_API_KEY environment variable or send it as api_key in the request body",

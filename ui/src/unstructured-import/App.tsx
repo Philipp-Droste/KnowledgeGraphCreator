@@ -128,33 +128,6 @@ function App() {
         <main className="flex flex-col gap-10 p-2">
           <div className="flex flex-col w-2/3 max-w-2xl min-h-0 gap-2 mx-auto mt-10">
             <h1 className="text-4xl font-bold text-center">Import data</h1>
-            <p>
-              This tool is used to import unstructured data into Neo4j. It takes
-              a file as input and optionally a schema in the form of{" "}
-              <a href="https://neo4j.com/developer-blog/describing-property-graph-data-model/">
-                graph data model
-              </a>{" "}
-              which is used to limit the data that is extracted from the file.
-              It's important to give the schema descriptive tokens so the tool
-              can identify the data that is imported.
-            </p>
-
-            <p>
-              The tool will try to extract as much data as possible from the
-              file and give you two options to import the data into Neo4j:
-            </p>
-
-            <ul>
-              <li>A cypher script that you can run in Neo4j Browser</li>
-              <li>A file that you can import using the Neo4j Import Tool</li>
-            </ul>
-
-            <p>
-              {" "}
-              If you use the Neo4j file you need to open Neo4j Importer which
-              can be found in the Neo4j Desktop. Select the options Open model
-              (with data){" "}
-            </p>
 
             <Switch
               label="Use schema"
@@ -174,7 +147,7 @@ function App() {
 
             <input type="file" className={`w-full max-w-xs file-input`} />
             <button
-              className={`ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong ${
+              className={`inline-block px-6 py-2 text-white bg-primary-500 border border-primary-500 rounded hover:bg-primary-700 active:bg-primary-800 ${
                 loading ? "ndl-loading" : ""
               }`}
               onClick={handleImport}
@@ -193,16 +166,10 @@ function App() {
                   cypher.
                 </p>
                 <button
-                  className="ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong"
+                  className="inline-block px-6 py-2 text-white bg-primary-500 border border-primary-500 rounded hover:bg-primary-700 active:bg-primary-800"
                   onClick={() => saveCypherResult(result)}
                 >
                   Save as Cypher
-                </button>
-                <button
-                  className="ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong"
-                  onClick={() => saveImportResultAsNeo4jImport(result)}
-                >
-                  Save as Neo4j Import format
                 </button>
               </div>
             ) : null}

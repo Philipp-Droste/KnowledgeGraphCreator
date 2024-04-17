@@ -10,31 +10,19 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <div className="flex flex-col min-h-screen gap-4 max-w-[1000px] w-[80%] mx-auto mt-4 ">
-      <h1 className="text-4xl font-bold text-center">NaLLM Demo</h1>
-      <p>
-        Welcome to the NaLLM project demo, In this project we have explored two
-        use cases. A Natural Language Interface to a Knowledge Graph and
-        Creating a Knowledge Graph from Unstructured Data.
-      </p>
-      <p>Use the options below to explore the use cases.</p>
+      <h1 className="text-4xl font-bold text-center">Knowledge Graph Creator</h1>
       <div className="flex flex-col w-full gap-4 px-10">
         <a
           href="use-cases/chat-with-kg/index.html"
-          className="ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong"
+          className="inline-block px-6 py-2 text-white bg-primary-500 border border-primary-500 rounded hover:bg-primary-700 active:bg-primary-800"
         >
           Chat With KG
         </a>
         <a
           href="use-cases/unstructured-import/index.html"
-          className="ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong"
+          className="inline-block px-6 py-2 text-white bg-primary-500 border border-primary-500 rounded hover:bg-primary-700 active:bg-primary-800"
         >
           Unstructured Import
-        </a>
-        <a
-          href="use-cases/report-generation/index.html"
-          className="ndl-btn ndl-large ndl-filled ndl-primary n-bg-palette-primary-bg-strong"
-        >
-          Report generator
         </a>
       </div>
     </div>

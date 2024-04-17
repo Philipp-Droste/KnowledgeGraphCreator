@@ -77,37 +77,7 @@ function App() {
 
   const showContent = serverAvailable && !needsApiKeyLoading;
 
-  function loadSampleQuestions() {
-    const body = {
-      api_key: apiKey,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-    fetch(QUESTIONS_URI, options).then(
-      (response) => {
-        response.json().then(
-          (result) => {
-            if (result.output && result.output.length > 0) {
-              setSampleQuestions(result.output.map(stripQuestionPrefix));
-            } else {
-              setSampleQuestions([]);
-            }
-          },
-          (error) => {
-            setSampleQuestions([]);
-          }
-        );
-      },
-      (error) => {
-        setSampleQuestions([]);
-      }
-    );
-  }
+  function loadSampleQuestions() {}
 
   useEffect(() => {
     fetch(HAS_API_KEY_URI).then(

@@ -1,17 +1,43 @@
 version: "3.7"
 services:
+  database:
+    user: neo4j:neo4j
+    image: neo4j:5.11
+    ports:
+      - 7687:7687
+      - 7474:7474
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER-neo4j}/${NEO4J_PASS-password}
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_db_tx__log_rotation_retention__policy=false
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider localhost:7474 || exit 1"]
+      interval: 15s
+      timeout: 30s
+      retries: 10
+    networks:
+      - net
+
   backend:
     build:
       context: ./api
     hostname: api
     restart: always
     container_name: api
+    environment:
+      - NEO4J_URL=${NEO4J_URL-neo4j://database:7687}
     ports:
       - 7860:7860
     env_file:
       - .env
     volumes:
       - ./api:/api
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+    - net
   frontend:
     build:
       context: ./ui
@@ -20,3 +46,11 @@ services:
     container_name: ui
     ports:
       - 4173:4173
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - net
+
+networks:
+  net:

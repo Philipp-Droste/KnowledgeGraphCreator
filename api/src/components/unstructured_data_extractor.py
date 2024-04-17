@@ -14,7 +14,7 @@ def generate_system_message_with_schema() -> str:
     return """
 You are a data scientist working for a company that is building a graph database. Your task is to extract information from data and convert it into a graph database.
 Provide a set of Nodes in the form [ENTITY, TYPE, PROPERTIES] and a set of relationships in the form [ENTITY1, RELATIONSHIP, ENTITY2, PROPERTIES]. 
-Pay attention to the type of the properties, if you can't find data for a property set it to null. Don't make anything up and don't add any extra data. If you can't find any data for a node or relationship don't add it.
+Don't be so literal in the interpretation of schema, but if you really can't find any similar data for a node or relationship, don't add it.
 Only add nodes and relationships that are part of the schema. If you don't get any relationships in the schema only add nodes.
 
 Example:
@@ -131,7 +131,6 @@ class DataExtractor(BaseComponent):
             {"role": "system", "content": generate_system_message()},
             {"role": "user", "content": generate_prompt(chunk)},
         ]
-        print(messages)
         output = self.llm.generate(messages)
         return output
 
@@ -140,7 +139,6 @@ class DataExtractor(BaseComponent):
             {"role": "system", "content": generate_system_message_with_schema()},
             {"role": "user", "content": generate_prompt_with_labels(chunk, labels)},
         ]
-        print(messages)
         output = self.llm.generate(messages)
         return output
 
@@ -177,6 +175,7 @@ class DataExtractorWithSchema(BaseComponent):
         self.llm = llm
 
     def run(self, data: str, schema: str) -> List[str]:
+        print(schema)
         system_message = generate_system_message_with_schema()
         prompt_string = (
             generate_system_message_with_schema()
